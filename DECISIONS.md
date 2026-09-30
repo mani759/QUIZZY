@@ -47,3 +47,39 @@ Putting `app.listen()` directly inside `app.js`.
 
 **Reason rejected:**  
 It couples application configuration with starting the network server and makes testing the Express application less clean.
+
+---
+
+### 4. Use Socket.IO for real-time quiz communication
+
+**Decision:**  
+We will use Socket.IO for real-time communication between the React clients and the Node.js server.
+
+**Why:**  
+A live quiz requires the server to immediately communicate events such as players joining, questions starting, and answers being submitted. HTTP request/response is useful for operations such as creating a room, but Socket.IO provides persistent connections and event-based communication for the live parts of the game.
+
+**Rejected:**  
+Polling with repeated HTTP requests.
+
+**Reason rejected:**  
+Polling would require clients to repeatedly ask the server for updates, creating unnecessary requests and introducing delays between state changes and client updates.
+
+---
+
+### 5. Keep application rooms separate from Socket.IO rooms
+
+**Decision:**  
+QUIZZY will maintain its own room state in a JavaScript `Map`, while Socket.IO rooms will be used only to group connected sockets for broadcasting.
+
+**Why:**  
+The QUIZZY room contains application state such as the room code, players, and game status. A Socket.IO room only groups socket connections. Keeping these concepts separate makes the application state independent from the communication mechanism.
+
+**Example:**
+
+QUIZZY room:
+
+```text
+254870
+├── players
+└── status
+```

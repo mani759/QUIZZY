@@ -24,6 +24,23 @@ const roomService = () => {
   return room;
 };
 
+const getRoom = (code) => {
+  return rooms.get(code);
+};
+
+const addPlayer = (code, player) => {
+  const room = rooms.get(code);
+
+  if (!room) {
+    return null;
+  }
+
+  room.players.push(player);
+
+  return room;
+};
 module.exports = {
   roomService,
+  getRoom,
+  addPlayer,
 };
