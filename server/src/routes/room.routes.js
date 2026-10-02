@@ -1,7 +1,7 @@
-const express = require("express");
-const roomController = require("../controllers/room.controller.js");
-const router = express.Router();
+// const express = require("express");
+// const roomController = require("../controllers/room.controller.js");
+// const router = express.Router();
 
-router.post("/create-room", roomController.createRoom);
+// router.post("/create-room", roomController.createRoom);
 
-module.exports = router;
+// module.exports = router;

@@ -1,4 +1,10 @@
-const QuestionView = ({ data }) => {
+const QuestionView = ({
+  data,
+  selectedOption = null,
+  correctOption = null,
+  disabled,
+  onAnswer,
+}) => {
   const { index, total, question } = data;
 
   return (
@@ -6,14 +12,31 @@ const QuestionView = ({ data }) => {
       <p>
         Question {index + 1} of {total}
       </p>
-      <h2>{question.question}</h2>
+      <h2>{question.text}</h2>
 
       <div>
-        {question.options.map((option, i) => (
-          <button key={i} onClick={() => console.log("Chose option", i)}>
-            {option}
-          </button>
-        ))}
+        {question.options.map((option, i) => {
+          const isSelected = i === selectedOption;
+          const isCorrect = i === correctOption;
+          const isWrongPick =
+            isSelected && correctOption !== null && !isCorrect;
+
+          return (
+            <button
+              key={i}
+              onClick={() => onAnswer?.(i)}
+              disabled={disabled}
+              style={{
+                fontWeight: isSelected ? "bold" : "normal",
+                color: isCorrect ? "green" : isWrongPick ? "red" : "inherit",
+              }}
+            >
+              {option}
+              {isCorrect && " ✓"}
+              {isWrongPick && " ✗"}
+            </button>
+          );
+        })}
       </div>
     </div>
   );

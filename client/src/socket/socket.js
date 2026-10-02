@@ -1,8 +1,8 @@
 import { io } from "socket.io-client";
+import { API_URL } from "../config/config";
 
-const socket = io("http://localhost:3000", {
+const socket = io(API_URL, {
   autoConnect: false,
 });
-window.socket = socket;
 
 export default socket;

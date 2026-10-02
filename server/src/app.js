@@ -12,5 +12,7 @@ app.get("/", (req, res) => {
 // routerssss....
 // const roomRouter = require("./routes/room.routes.js");
 // app.use("/api/rooms", roomRouter);
+const quizRouter = require("./routes/quiz.routes");
+app.use("/api/quizzes", quizRouter);
 
 module.exports = app;
