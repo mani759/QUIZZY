@@ -5,6 +5,7 @@ import QuizListPage from "./pages/QuizListPage";
 import CreateQuizPage from "./pages/CreateQuizPage";
 import LoginPage from "./pages/LoginPage";
 import RequireAuth from "./auth/RequireAuth";
+import HomePage from "./pages/HomePage";
 
 import "./App.css";
 
@@ -13,6 +14,7 @@ import "./App.css";
 const App = () => {
   return (
     <Routes>
+      <Route path="/" element={<HomePage />} />
       <Route path="/login" element={<LoginPage />} />
 
       <Route
@@ -41,6 +43,7 @@ const App = () => {
       />
 
       <Route path="/join/:code" element={<PlayerPage />} />
+      <Route path="*" element={<Navigate to="/" replace />} />
     </Routes>
   );
 };
