@@ -3,6 +3,12 @@ import { useNavigate } from "react-router-dom";
 import { supabase } from "../supabase/supabaseClient";
 import { Navigate, useLocation } from "react-router-dom";
 import { useAuth } from "../auth/AuthContext";
+import Button from "../components/Button";
+import Spinner from "../components/Spinner";
+import Card from "../components/Card";
+import Input from "../components/Input";
+import ErrorMessage from "../components/ErrorMessage";
+import CenteredPage from "../components/CenteredPage";
 
 const LoginPage = () => {
   const navigate = useNavigate();
@@ -41,43 +47,76 @@ const LoginPage = () => {
   }
 
   return (
-    <form onSubmit={handleSubmit}>
-      <h2>{isSignup ? "Create a host account" : "Host login"}</h2>
+    <CenteredPage>
+      <Card
+        as="form"
+        onSubmit={handleSubmit}
+        className="w-full max-w-sm p-6 sm:p-8"
+      >
+        <p className="text-center font-display text-4xl font-bold tracking-wide text-brand">
+          QUIZZY
+        </p>
+        <h1 className="mt-2 text-center text-2xl font-semibold">
+          {isSignup ? "Create a host account" : "Host login"}
+        </h1>
 
-      <input
-        type="email"
-        value={email}
-        onChange={(e) => setEmail(e.target.value)}
-        placeholder="Email"
-        required
-      />
+        <label htmlFor="email" className="mt-6 block font-bold">
+          Email
+        </label>
+        <Input
+          id="email"
+          type="email"
+          value={email}
+          onChange={(e) => setEmail(e.target.value)}
+          placeholder="Email"
+          autoComplete="email"
+          required
+          className="mt-1 text-lg"
+        />
 
-      <input
-        type="password"
-        value={password}
-        onChange={(e) => setPassword(e.target.value)}
-        placeholder="Password (at least 6 characters)"
-        minLength={6}
-        required
-      />
+        <label htmlFor="password" className="mt-4 block font-bold">
+          Password
+        </label>
+        <Input
+          id="password"
+          type="password"
+          value={password}
+          onChange={(e) => setPassword(e.target.value)}
+          placeholder="Password (at least 6 characters)"
+          autoComplete={isSignup ? "new-password" : "current-password"}
+          minLength={6}
+          required
+          className="mt-1 text-lg"
+        />
 
-      <button type="submit" disabled={loading}>
-        {loading ? "Please wait..." : isSignup ? "Sign up" : "Log in"}
-      </button>
-
-      {error && <p>{error}</p>}
-
-      <p>
-        <button
-          type="button"
-          onClick={() => setMode(isSignup ? "signin" : "signup")}
+        <Button
+          type="submit"
+          variant="brand"
+          size="lg"
+          disabled={loading}
+          className="mt-6 w-full"
         >
-          {isSignup
-            ? "Already have an account? Log in"
-            : "New here? Create an account"}
-        </button>
-      </p>
-    </form>
+          {loading && (
+            <Spinner className="size-5 border-4 border-white/40 border-t-white" />
+          )}
+          {loading ? "Please wait..." : isSignup ? "Sign up" : "Log in"}
+        </Button>
+
+        {error && <ErrorMessage className="mt-4">{error}</ErrorMessage>}
+
+        <div className="mt-6 border-t-2 border-ink/10 pt-4 text-center">
+          <button
+            type="button"
+            onClick={() => setMode(isSignup ? "signin" : "signup")}
+            className="rounded-lg px-2 py-1 font-bold text-brand underline decoration-2 underline-offset-4 hover:decoration-4 focus-visible:outline-4 focus-visible:outline-offset-2 focus-visible:outline-brand"
+          >
+            {isSignup
+              ? "Already have an account? Log in"
+              : "New here? Create an account"}
+          </button>
+        </div>
+      </Card>
+    </CenteredPage>
   );
 };
 

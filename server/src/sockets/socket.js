@@ -306,6 +306,40 @@ const registerSocketHandler = (io) => {
 
       console.log(`Host resumed room ${room.code}`);
     });
+
+    socket.on("host:close-room", (ack = () => {}) => {
+      const { roomCode, role, userId } = socket.data;
+
+      if (role !== "host" || !roomCode) {
+        ack();
+        return;
+      }
+
+      const room = roomService.getRoom(roomCode);
+
+      if (room && room.hostId === userId) {
+        if (room.closeTimer) {
+          clearTimeout(room.closeTimer);
+          room.closeTimer = null;
+        }
+
+        if (room.status !== "finished") {
+          io.to(room.code).emit("room:closed", {
+            message: "The host has ended the session",
+          });
+        }
+
+        roomService.closeRoom(room.code);
+        console.log(`Room ${room.code} closed by host`);
+      }
+
+      socket.leave(roomCode);
+      socket.leave(`host:${roomCode}`);
+      socket.data.roomCode = null;
+      socket.data.role = null;
+
+      ack();
+    });
   });
 };
 

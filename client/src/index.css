@@ -1,0 +1,83 @@
+@import "tailwindcss";
+
+/* Design tokens: each one becomes Tailwind utilities,
+   e.g. --color-brand -> bg-brand / text-brand, --font-display -> font-display */
+@theme {
+  --font-display: "Fredoka", ui-rounded, system-ui, sans-serif;
+  --font-body: "Nunito", system-ui, sans-serif;
+
+  --color-brand: #6d28d9;
+  --color-brand-dark: #3b0f8c;
+  --color-ink: #1e1b4b;
+
+  --color-answer-red: #e5484d;
+  --color-answer-blue: #2f6feb;
+  --color-answer-yellow: #f2a900;
+  --color-answer-green: #2ea043;
+
+  --color-correct: #22c55e;
+  --color-wrong: #ef4444;
+
+  /* Solid "chunky" card shadow -> shadow-card */
+  --shadow-card: 0 8px 0 rgb(0 0 0 / 0.25);
+
+  /* Animations: --animate-pop -> animate-pop class, etc.
+     Pair each with motion-reduce:animate-none where it's used. */
+  --animate-pop: pop 450ms cubic-bezier(0.34, 1.56, 0.64, 1) both;
+  --animate-shake: shake 450ms ease-in-out both;
+  --animate-wait: wait 1.4s ease-in-out infinite;
+
+  @keyframes pop {
+    0% {
+      transform: scale(0.6);
+      opacity: 0;
+    }
+    60% {
+      transform: scale(1.08);
+      opacity: 1;
+    }
+    100% {
+      transform: scale(1);
+    }
+  }
+
+  @keyframes shake {
+    0%,
+    100% {
+      transform: translateX(0);
+    }
+    20%,
+    60% {
+      transform: translateX(-8px);
+    }
+    40%,
+    80% {
+      transform: translateX(8px);
+    }
+  }
+
+  @keyframes wait {
+    0%,
+    70%,
+    100% {
+      transform: translateY(0);
+      opacity: 0.4;
+    }
+    35% {
+      transform: translateY(-8px);
+      opacity: 1;
+    }
+  }
+}
+
+@layer base {
+  body {
+    @apply min-h-dvh bg-linear-to-b from-brand to-brand-dark bg-fixed font-body text-white antialiased;
+  }
+
+  h1,
+  h2,
+  h3 {
+    @apply font-display;
+  }
+}
