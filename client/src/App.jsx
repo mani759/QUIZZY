@@ -6,6 +6,7 @@ import CreateQuizPage from "./pages/CreateQuizPage";
 import LoginPage from "./pages/LoginPage";
 import RequireAuth from "./auth/RequireAuth";
 import HomePage from "./pages/HomePage";
+import { Navigate } from "react-router-dom";
 
 import "./App.css";
 
