@@ -82,7 +82,16 @@ const QuizListPage = () => {
     <div className="min-h-dvh">
       <header className="border-b-2 border-white/15 bg-brand-dark/40">
         <div className="mx-auto flex max-w-6xl items-center justify-between gap-4 px-4 py-4 sm:px-6">
-          <p className="font-display text-3xl font-bold tracking-wide">QUIZZY</p>
+          <div className="flex items-center gap-3">
+            <img
+              src="/favicon.png"
+              alt=""
+              className="size-10 rounded-xl object-cover"
+            />
+            <p className="font-display text-3xl font-bold tracking-wide">
+              QUIZZY
+            </p>
+          </div>
           <div className="flex min-w-0 items-center gap-4">
             <p className="hidden min-w-0 truncate text-white/85 sm:block">
               Logged in as <strong className="text-white">{user.email}</strong>
