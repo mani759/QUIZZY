@@ -84,7 +84,7 @@ const QuizListPage = () => {
         <div className="mx-auto flex max-w-6xl items-center justify-between gap-4 px-4 py-4 sm:px-6">
           <div className="flex items-center gap-3">
             <img
-              src="/favicon.png"
+              src="/favicon.svg"
               alt=""
               className="size-10 rounded-xl object-cover"
             />
@@ -115,7 +115,10 @@ const QuizListPage = () => {
               to="/host/new"
               className="flex h-full min-h-48 flex-col items-center justify-center gap-2 rounded-3xl border-4 border-dashed border-white/60 bg-white/10 p-6 text-center transition-colors hover:bg-white/20 focus-visible:outline-4 focus-visible:outline-offset-4 focus-visible:outline-white motion-reduce:transition-none"
             >
-              <span aria-hidden="true" className="font-display text-6xl leading-none">
+              <span
+                aria-hidden="true"
+                className="font-display text-6xl leading-none"
+              >
                 +
               </span>
               <span className="font-display text-2xl font-semibold">
@@ -151,7 +154,9 @@ const QuizListPage = () => {
 
         {quizzes.length === 0 && (
           <div className="mt-8 rounded-3xl bg-white/10 p-6 text-center">
-            <p className="font-display text-2xl font-semibold">No quizzes yet.</p>
+            <p className="font-display text-2xl font-semibold">
+              No quizzes yet.
+            </p>
             <p className="mt-1 text-white/85">
               Create your first one with the card above.
             </p>
